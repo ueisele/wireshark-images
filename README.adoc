@@ -1,0 +1,47 @@
+= Wireshark Docker Imagea
+
+== TShark
+
+If you wish to analyze traffic from network devices, you should use:
+
+[source,bash]
+----
+docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/tshark:3.3.1-bullseye
+----
+
+If that didn't work, it may be necessary to start the container as priviliged:
+
+[source,bash]
+----
+docker run -it --rm --privileged ueisele/tshark:3.3.1-bullseye
+----
+
+== Termshark
+
+If you wish to analyze traffic from network devices, you should use:
+
+[source,bash]
+----
+docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/termshark:3.3.1-bullseye
+----
+
+== Wireshark
+
+Docker image which makes Wireshark available via Web browser using XPRA based on https://github.com/ffeldhaus/docker-wireshark
+
+Run wireshark container. By default port 14500 will be used. Change docker port mapping to a different port if required (e.g. 5432/14500).
+
+By default, the container uses the default self-signed certificate to offer SSL. If you want to specify your own certificate, you can overwrite the default SSL certificate with the docker parameter similar to `--mount type=bind,source="$(pwd)"/ssl-cert.pem,target=/etc/xpra/ssl-cert.pem,readonly` (make sure to put the ssl-cert.pem file in the current folder or modify the source path).
+
+By default, Wireshark can only be accessed using a password. The default password is wireshark, but can be changed by setting the environment variable XPRA_PW.
+
+[source,bash]
+----
+docker run --rm --cap-add NET_ADMIN --cap-add=NET_RAW -p 14500:14500 ueisele/wireshark:3.3.1
+----
+
+Access Wireshark via the browser using the IP/Hostname of your docker host and providing username and password (change password=wireshark if you provided a different password) using e.g.
+
+----
+https://localhost:14500/?username=debian&password=debian
+----
