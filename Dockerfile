@@ -42,7 +42,7 @@ RUN apt-get update \
 	&& apt-get update \
 	&& apt-get upgrade -y \
 	&& apt-get -y install procps neovim less expect jq net-tools iproute2 nftables iputils-ping iputils-tracepath iputils-arping \
-		telnet dnsutils netcat socat tcpdump hping3 curl wget httpie \
+		telnet ldnsutils netcat socat tcpdump hping3 curl wget httpie \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
