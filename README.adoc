@@ -6,14 +6,22 @@ If you wish to analyze traffic from network devices, you should use:
 
 [source,bash]
 ----
-docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/tshark:3.3.1-bullseye
+docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/tshark:3.6.1
+----
+
+You can capture on a specific network interface with `-i` flag, e.g. `-i eth0`. 
+Its also possible to capture host network interfaces adding `--net host` parameter.
+
+[source,bash]
+----
+docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW --net host ueisele/tshark:3.6.1 -i eth0
 ----
 
 If that didn't work, it may be necessary to start the container as priviliged:
 
 [source,bash]
 ----
-docker run -it --rm --privileged ueisele/tshark:3.3.1-bullseye
+docker run -it --rm --privileged ueisele/tshark:3.6.1
 ----
 
 == Termshark
@@ -22,7 +30,7 @@ If you wish to analyze traffic from network devices, you should use:
 
 [source,bash]
 ----
-docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/termshark:3.3.1-bullseye
+docker run -it --rm --cap-add NET_ADMIN --cap-add=NET_RAW ueisele/tshark-termshark:3.6.1-2.3.0
 ----
 
 == Wireshark
@@ -37,7 +45,7 @@ By default, Wireshark can only be accessed using a password. The default passwor
 
 [source,bash]
 ----
-docker run --rm --cap-add NET_ADMIN --cap-add=NET_RAW -p 14500:14500 ueisele/wireshark:3.3.1
+docker run --rm --cap-add NET_ADMIN --cap-add=NET_RAW -p 14500:14500 ueisele/wireshark:3.6.1
 ----
 
 Access Wireshark via the browser using the IP/Hostname of your docker host and providing username and password (change password=wireshark if you provided a different password) using e.g.
