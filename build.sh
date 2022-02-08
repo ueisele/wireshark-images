@@ -16,8 +16,7 @@ TERMSHARK_VERSION="2.3.0"
 function usage () {
     echo "$0: $1" >&2
     echo
-    echo "Usage: $0 [--push] [--user <name, e.g. ueisele>] --version <wireshark-version, e.g. 3.6.1>"
-    echo "Usage: $0 [--push] [--user <name, e.g. ueisele>] --branch <wireshark-branch, e.g. master>"
+    echo "Usage: $0 [--push] [--user <name, e.g. ueisele>] [--version <wireshark-version, e.g. 3.6.1>] [--branch <wireshark-branch, e.g. master>] [--platform <list of platforms, e.g. linux/amd64 or linux/arm64>]"
     echo
     return 1
 }
@@ -141,6 +140,19 @@ function parseCmd () {
                     *)
                         WIRESHARK_BRANCH="$1"
                         WIRESHARK_VERSION="$(curl -s -L https://gitlab.com/wireshark/wireshark/-/raw/${WIRESHARK_BRANCH}/debian/changelog | grep 'wireshark (' | sed 's/^wireshark (\([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\)).*$/\1/')"
+                        shift
+                        ;;
+                esac
+                ;;
+            --platform)
+                shift
+                case "$1" in
+                    ""|--*)
+                        usage "List of platforms required, e.g. linux/amd64 or linux/arm64"
+                        return 1
+                        ;;
+                    *)
+                        PLATFORM="$1"
                         shift
                         ;;
                 esac

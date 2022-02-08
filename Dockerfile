@@ -52,9 +52,9 @@ ENV DEBIAN_FRONTEND=dialog
 # Install tini init daemon
 ARG TINI_VERSION=v0.19.0
 ARG TARGETARCH
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${TARGETARCH} /usr/local/tini
-RUN chmod +x /usr/local/tini
-ENTRYPOINT ["/usr/local/tini", "--"]
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${TARGETARCH} /usr/local/bin/tini
+RUN chmod +rx /usr/local/bin/tini
+ENTRYPOINT ["/usr/local/bin/tini", "--"]
 CMD ["/bin/bash"]
 
 # Add permissions to run network tools as non root user
@@ -111,7 +111,7 @@ LABEL wireshark.version=${WIRESHARK_VERSION}
 LABEL wireshark.branch=${WIRESHARK_BRANCH}
 
 # Set default cmd
-ENTRYPOINT ["/usr/local/tini", "--", "/usr/bin/tshark"]
+ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/bin/tshark"]
 CMD []
 
 
@@ -136,7 +136,7 @@ LABEL termshark.version=${TERMSHARK_VERSION}
 USER debian
 
 # Set default cmd
-ENTRYPOINT ["/usr/local/tini", "--", "/usr/bin/termshark"]
+ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/bin/termshark"]
 CMD []
 
 
@@ -185,7 +185,7 @@ ENV XPRA_PW debian
 EXPOSE 14500
 
 # run xpra, options --daemon and --no-printing only work if specified as parameters to xpra start
-ENTRYPOINT ["/usr/local/tini", "--", "/usr/bin/xpra", "start", ":10", "--daemon=no"]
+ENTRYPOINT ["/usr/local/bin/tini", "--", "/usr/bin/xpra", "start", ":10", "--daemon=no"]
 CMD ["--start-child=xterm", "--exit-with-children=yes"]
 
 
