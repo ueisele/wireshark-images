@@ -54,6 +54,13 @@ Access Wireshark via the browser: https://localhost:14500/?username=debian&passw
 
 == Build
 
+Enable execution of different multi-architecture containers by QEMU and binfmt_misc (see https://github.com/multiarch/qemu-user-static):
+
+[source,bash]
+----
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+----
+
 Build images with Wireshark 3.6.1 for `arm64` and `amd64` and push to Docker Hub registry of user `ueisele`.
 
 [source,bash]

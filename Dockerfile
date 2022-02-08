@@ -227,4 +227,4 @@ LABEL wireshark.version=${WIRESHARK_VERSION}
 LABEL wireshark.branch=${WIRESHARK_BRANCH}
 
 # run xpra, options --daemon and --no-printing only work if specified as parameters to xpra start
-CMD []
+CMD ["--exit-with-children=false"]
